@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CyberService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/CyberWatchService" />
+      <xs:element name="Register">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="iD_Number" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="passPortNo" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="type" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="surname" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="DOB" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="cellPhone" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RegisterResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="RegisterResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Login">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LoginResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="LoginResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUsers">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userStatus" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUsersResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CyberWatchService" minOccurs="0" name="GetUsersResult" nillable="true" type="q1:ArrayOfUser" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateUserDetails">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="cellphone" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateUserDetailsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="updateUserDetailsResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="forgottenPasswordUsingIDNumber">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="IDNUmber" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="forgottenPasswordUsingIDNumberResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="forgottenPasswordUsingIDNumberResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="forgottenPasswordUsingEmail">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="OTP" type="xs:int" />
+            <xs:element minOccurs="0" name="time" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="forgottenPasswordUsingEmailResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="forgottenPasswordUsingEmailResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ComfirmUSer">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userid" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ComfirmUSerResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ComfirmUSerResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getUser">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userid" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CyberWatchService" minOccurs="0" name="getUserResult" nillable="true" type="q2:User" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeactivateUser">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userid" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeactivateUserResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="DeactivateUserResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="VerifyEmail">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="VerifyEmailResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="VerifyEmailResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="VerifyCell">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="cell" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="VerifyCellResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="VerifyCellResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="generateOTP">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="Time" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="generateOTPResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="generateOTPResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="retrieveDataIDNo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Idnumber" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="retrieveDataIDNoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CyberWatchService" minOccurs="0" name="retrieveDataIDNoResult" nillable="true" type="q3:ArrayOfAlert" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="retrieveDataPASSP">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="passport" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="retrieveDataPASSPResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CyberWatchService" minOccurs="0" name="retrieveDataPASSPResult" nillable="true" type="q4:ArrayOfAlert" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAlertsUnresp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="status" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAlertsUnrespResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CyberWatchService" minOccurs="0" name="GetAlertsUnrespResult" nillable="true" type="q5:ArrayOfAlert" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RemoveFalseAlert">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="alertID" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RemoveFalseAlertResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="RemoveFalseAlertResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConfirmAlertorFalseA">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="alertiD" type="xs:int" />
+            <xs:element minOccurs="0" name="status" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConfirmAlertorFalseAResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ConfirmAlertorFalseAResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addAlert">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userid" type="xs:int" />
+            <xs:element minOccurs="0" name="crimetype" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="image" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="xcoord" type="xs:decimal" />
+            <xs:element minOccurs="0" name="ycoord" type="xs:decimal" />
+            <xs:element minOccurs="0" name="alerttime" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addAlertResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="addAlertResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserEm">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserEmResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CyberWatchService" minOccurs="0" name="GetUserEmResult" nillable="true" type="q6:User" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="assignRole">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userID" type="xs:int" />
+            <xs:element minOccurs="0" name="role" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="assignRoleResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="assignRoleResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CyberWatchService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CyberWatchService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfUser" nillable="true" type="tns:ArrayOfUser" />
+      <xs:complexType name="User">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cell_Number" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Date_Of_Birth" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID_Number" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LocationID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PassPort_Number" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Passwword" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Profile_picture" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserID" type="xs:int" />
+          <xs:element minOccurs="0" name="UserType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="status" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="User" nillable="true" type="tns:User" />
+      <xs:complexType name="ArrayOfAlert">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Alert" nillable="true" type="tns:Alert" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAlert" nillable="true" type="tns:ArrayOfAlert" />
+      <xs:complexType name="Alert">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AlertID" type="xs:int" />
+          <xs:element minOccurs="0" name="AlertTime" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Crime_TypeID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="LAT" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="LONGI" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserID" type="xs:int" />
+          <xs:element minOccurs="0" name="alertstatus" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="image" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Alert" nillable="true" type="tns:Alert" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ICyberService_Register_InputMessage">
+    <wsdl:part name="parameters" element="tns:Register" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_Register_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_GetUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsers" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_GetUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_updateUserDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:updateUserDetails" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_updateUserDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateUserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_forgottenPasswordUsingIDNumber_InputMessage">
+    <wsdl:part name="parameters" element="tns:forgottenPasswordUsingIDNumber" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_forgottenPasswordUsingIDNumber_OutputMessage">
+    <wsdl:part name="parameters" element="tns:forgottenPasswordUsingIDNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_forgottenPasswordUsingEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:forgottenPasswordUsingEmail" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_forgottenPasswordUsingEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:forgottenPasswordUsingEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_ComfirmUSer_InputMessage">
+    <wsdl:part name="parameters" element="tns:ComfirmUSer" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_ComfirmUSer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ComfirmUSerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_getUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:getUser" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_getUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_DeactivateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateUser" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_DeactivateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_VerifyEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyEmail" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_VerifyEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_VerifyCell_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyCell" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_VerifyCell_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyCellResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_generateOTP_InputMessage">
+    <wsdl:part name="parameters" element="tns:generateOTP" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_generateOTP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:generateOTPResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_retrieveDataIDNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:retrieveDataIDNo" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_retrieveDataIDNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:retrieveDataIDNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_retrieveDataPASSP_InputMessage">
+    <wsdl:part name="parameters" element="tns:retrieveDataPASSP" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_retrieveDataPASSP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:retrieveDataPASSPResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_GetAlertsUnresp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlertsUnresp" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_GetAlertsUnresp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlertsUnrespResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_RemoveFalseAlert_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFalseAlert" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_RemoveFalseAlert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFalseAlertResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_ConfirmAlertorFalseA_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmAlertorFalseA" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_ConfirmAlertorFalseA_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmAlertorFalseAResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_addAlert_InputMessage">
+    <wsdl:part name="parameters" element="tns:addAlert" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_addAlert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addAlertResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_GetUserEm_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserEm" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_GetUserEm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserEmResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_assignRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:assignRole" />
+  </wsdl:message>
+  <wsdl:message name="ICyberService_assignRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:assignRoleResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICyberService">
+    <wsdl:operation name="Register">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/Register" message="tns:ICyberService_Register_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/RegisterResponse" message="tns:ICyberService_Register_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/Login" message="tns:ICyberService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/LoginResponse" message="tns:ICyberService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/GetUsers" message="tns:ICyberService_GetUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/GetUsersResponse" message="tns:ICyberService_GetUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUserDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/updateUserDetails" message="tns:ICyberService_updateUserDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/updateUserDetailsResponse" message="tns:ICyberService_updateUserDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="forgottenPasswordUsingIDNumber">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/forgottenPasswordUsingIDNumber" message="tns:ICyberService_forgottenPasswordUsingIDNumber_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/forgottenPasswordUsingIDNumberResponse" message="tns:ICyberService_forgottenPasswordUsingIDNumber_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="forgottenPasswordUsingEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/forgottenPasswordUsingEmail" message="tns:ICyberService_forgottenPasswordUsingEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/forgottenPasswordUsingEmailResponse" message="tns:ICyberService_forgottenPasswordUsingEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ComfirmUSer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/ComfirmUSer" message="tns:ICyberService_ComfirmUSer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/ComfirmUSerResponse" message="tns:ICyberService_ComfirmUSer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/getUser" message="tns:ICyberService_getUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/getUserResponse" message="tns:ICyberService_getUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/DeactivateUser" message="tns:ICyberService_DeactivateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/DeactivateUserResponse" message="tns:ICyberService_DeactivateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerifyEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/VerifyEmail" message="tns:ICyberService_VerifyEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/VerifyEmailResponse" message="tns:ICyberService_VerifyEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerifyCell">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/VerifyCell" message="tns:ICyberService_VerifyCell_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/VerifyCellResponse" message="tns:ICyberService_VerifyCell_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="generateOTP">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/generateOTP" message="tns:ICyberService_generateOTP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/generateOTPResponse" message="tns:ICyberService_generateOTP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveDataIDNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/retrieveDataIDNo" message="tns:ICyberService_retrieveDataIDNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/retrieveDataIDNoResponse" message="tns:ICyberService_retrieveDataIDNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveDataPASSP">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/retrieveDataPASSP" message="tns:ICyberService_retrieveDataPASSP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/retrieveDataPASSPResponse" message="tns:ICyberService_retrieveDataPASSP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlertsUnresp">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/GetAlertsUnresp" message="tns:ICyberService_GetAlertsUnresp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/GetAlertsUnrespResponse" message="tns:ICyberService_GetAlertsUnresp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFalseAlert">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/RemoveFalseAlert" message="tns:ICyberService_RemoveFalseAlert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/RemoveFalseAlertResponse" message="tns:ICyberService_RemoveFalseAlert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmAlertorFalseA">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/ConfirmAlertorFalseA" message="tns:ICyberService_ConfirmAlertorFalseA_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/ConfirmAlertorFalseAResponse" message="tns:ICyberService_ConfirmAlertorFalseA_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addAlert">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/addAlert" message="tns:ICyberService_addAlert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/addAlertResponse" message="tns:ICyberService_addAlert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserEm">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/GetUserEm" message="tns:ICyberService_GetUserEm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/GetUserEmResponse" message="tns:ICyberService_GetUserEm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="assignRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICyberService/assignRole" message="tns:ICyberService_assignRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICyberService/assignRoleResponse" message="tns:ICyberService_assignRole_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICyberService" type="tns:ICyberService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Register">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/Register" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsers">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/GetUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserDetails">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/updateUserDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="forgottenPasswordUsingIDNumber">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/forgottenPasswordUsingIDNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="forgottenPasswordUsingEmail">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/forgottenPasswordUsingEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ComfirmUSer">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/ComfirmUSer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUser">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/getUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateUser">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/DeactivateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyEmail">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/VerifyEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyCell">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/VerifyCell" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateOTP">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/generateOTP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveDataIDNo">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/retrieveDataIDNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveDataPASSP">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/retrieveDataPASSP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlertsUnresp">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/GetAlertsUnresp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFalseAlert">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/RemoveFalseAlert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmAlertorFalseA">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/ConfirmAlertorFalseA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addAlert">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/addAlert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserEm">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/GetUserEm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="assignRole">
+      <soap:operation soapAction="http://tempuri.org/ICyberService/assignRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CyberService">
+    <wsdl:port name="BasicHttpBinding_ICyberService" binding="tns:BasicHttpBinding_ICyberService">
+      <soap:address location="http://localhost:50157/CyberService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
